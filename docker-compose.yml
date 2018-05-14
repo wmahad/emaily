@@ -1,0 +1,8 @@
+version: '3.6'
+
+services:
+  emaily:
+    image: emaily
+    build: .
+    ports:
+      - 8000:5000
