@@ -6,11 +6,7 @@ const User = mongoose.model('users');
 
 
 const deserializeUser = (id, done) => {
-    console.log('id: ', id);
-    User.findById(id).then(user => {
-        console.log('deserial: ', user)
-        done(null, user);
-    });
+    User.findById(id).then(user => done(null, user));
 }
 
 // authentication callback.
@@ -35,15 +31,6 @@ const googleConfig = {
     proxy: true,
 };
 
-passport.serializeUser((user, done) => {
-    console.log('serial: ', user)
-    done(null, user.id)
-});
-passport.deserializeUser((id, done) => {
-    console.log('id: ');
-    User.findById(id).then(user => {
-        console.log('deserial: ', user)
-        done(null, user);
-    });
-});
+passport.serializeUser((user, done) => done(null, user.id));
+passport.deserializeUser(deserializeUser);
 passport.use(new GoogleStrategy(googleConfig, authUserCallback))
