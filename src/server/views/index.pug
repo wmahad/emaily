@@ -1,0 +1,14 @@
+doctype html
+html(lang='en')
+    head
+        title Emaily
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(name="robots", content="noindex,nofollow")
+        //- link(rel="stylesheet", type="text/css", href='/assets/boro-hall.min.css')
+    body
+        #app-container
+
+        script(type='text/javascript', src='/assets/bundle.min.js')
+        - if (NODE_ENV === 'development')
+            script(type='text/javascript', src='http://localhost:35729/livereload.js')
