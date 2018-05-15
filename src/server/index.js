@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const morgan = require('morgan');
 const path = require('path');
 
 const PORT = process.env.PORT || 5000;
@@ -15,8 +16,8 @@ require('./services/passport');
 // create express instance
 const router = express.Router();
 const app = express();
-// set cookie auth
 
+// set cookie auth
 const cookieConfig = {
     maxAge: 30 * 24 * 60 * 60 * 1000, // equal to 30 days.
     keys: [process.env.COOKIE_KEY] // sign the cookie.
@@ -24,6 +25,9 @@ const cookieConfig = {
 app.use(cookieSession(cookieConfig));
 app.use(passport.initialize());
 app.use(passport.session());
+
+// set logger
+app.use(morgan('combined'));
 
 // create virtual prefix to serve static files
 const rootDir = path.join(path.dirname(path.basename(path.dirname(__dirname))), 'public');

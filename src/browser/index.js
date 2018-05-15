@@ -8,7 +8,7 @@ class App extends Component {
       <div>
         Welcome, express meet react.
         <br />
-        <a href="#">Sign in With Google</a>
+        <a href="/auth/google">Sign in With Google</a>
       </div>
     )
   }
