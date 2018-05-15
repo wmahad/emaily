@@ -1,17 +1,23 @@
+require('babel-core/register');
+require('babel-polyfill');
+import 'materialize-css/dist/css/materialize.min.css';
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reduxThunk from 'redux-thunk';
 
+import Routes from './Routes';
+import reducers from './reducers';
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        Welcome, express meet react.
-        <br />
-        <a href="/auth/google">Sign in With Google</a>
-      </div>
-    )
-  }
-}
+ // create store
+const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
-render(<App />, document.querySelector('#app-container'));
+// wrap the entire app in a provider with a store.
+const Container = () => (
+    <Provider store={store}>
+        <Routes />
+    </Provider>
+);
+
+render(<Container />, document.querySelector('#app-container'));

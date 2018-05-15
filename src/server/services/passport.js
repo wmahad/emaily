@@ -4,23 +4,16 @@ const mongoose = require('mongoose');
 
 const User = mongoose.model('users');
 
-
-const deserializeUser = (id, done) => {
-    User.findById(id).then(user => done(null, user));
+const deserializeUser = async (id, done) => {
+    const user = await User.findById(id);
+    return done(null, user);
 }
 
 // authentication callback.
-const authUserCallback = (accessToken, refreshToken, profile, done) => {
-    User.findOne({ profileId: profile.id })
-    .then((user) => {
-        if (!user) {
-            new User({ profileId: profile.id })
-            .save()
-            .then(newUser => done(null, newUser));
-        } else {
-            done(null, user);
-        }
-    });
+const authUserCallback = async (accessToken, refreshToken, profile, done) => {
+    let user = await User.findOne({ profileId: profile.id });
+    if (!user) user = await new User({ profileId: profile.id }).save();
+    return done(null, user);
 };
 
 // google configs
