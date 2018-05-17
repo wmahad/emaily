@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { FETCH_USER } from '../../shared/constants';
 
 class Header extends Component {
+
+    renderContent() {
+        switch (this.props.auth) {
+            case null:
+                return;
+            case false:
+                return (<li><a href='/auth/google'>Log in with Google</a></li>);
+            default:
+                return (
+                    <li><a href='/auth/logout'>Log out</a></li>
+                );
+        }
+    }
+
     render() {
+        const to = this.props.auth ? '/surveys' : '/';
         return (
             <nav>
                 <div className='nav-wrapper'>
-                    <a href='#' className='brand-logo'>Emaily</a>
+                    <Link to={to} className='brand-logo'>Emaily</Link>
                     <ul id='nav-mobile' className='right hide-on-med-and-down'>
-                        <li><a href='sass.html'>Login</a></li>
+                        {this.renderContent()}
                     </ul>
                 </div>
             </nav>
@@ -16,4 +33,8 @@ class Header extends Component {
     }
 }
 
-export default Header;
+function mapStateToProps({ auth }) {
+    return { auth };
+}
+
+export default connect(mapStateToProps)(Header);
