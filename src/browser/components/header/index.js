@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { FETCH_USER } from '../../shared/constants';
+
+import Payment from '../payment';
 
 class Header extends Component {
 
@@ -12,9 +14,11 @@ class Header extends Component {
             case false:
                 return (<li><a href='/auth/google'>Log in with Google</a></li>);
             default:
-                return (
-                    <li><a href='/auth/logout'>Log out</a></li>
-                );
+                return [
+                    <li key='1'><Payment /></li>,
+                    <li key='2' style={{margin: '0px 10px'}}>Credits: {this.props.auth.credits}</li>,
+                    <li key='3'><a href='/auth/logout'>Log out</a></li>
+                ];
         }
     }
 

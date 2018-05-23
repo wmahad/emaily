@@ -25,6 +25,9 @@ module.exports = {
     },
     plugins: [
         new LiveReloadPlugin(),
+        new webpack.DefinePlugin({
+            STRIPE_PUBLISHABLE_KEY: JSON.stringify(process.env.STRIPE_PUBLISHABLE_KEY),
+        }),
     ],
     resolve: {
         extensions: ['.js', '.jsx']

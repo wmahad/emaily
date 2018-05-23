@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.3",
     "materialize-css": "^1.0.0-rc.1",
@@ -27,8 +28,10 @@
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
+    "react-stripe-checkout": "^2.6.3",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "stripe": "^6.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

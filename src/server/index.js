@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const path = require('path');
 
 const PORT = process.env.PORT || 5000;
@@ -16,6 +17,9 @@ require('./services/passport');
 // create express instance
 const router = express.Router();
 const app = express();
+
+// add body-parser
+app.use(bodyParser.json());
 
 // set cookie auth
 const cookieConfig = {
@@ -39,6 +43,7 @@ app.set('view engine', 'pug');
 
 // routes go here
 require('./handlers/auth')(router);
+require('./handlers/billing')(router);
 
 // index route - render a view.
 app.use('/', router);
